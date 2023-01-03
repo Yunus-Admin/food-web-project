@@ -56,5 +56,27 @@ document.addEventListener("DOMContentLoaded", () => {
     };
   }
 
-  console.log(getTimeRemaining(deadline));
+  function setClock(selector, endTime) {
+    const timer = document.querySelector(selector),
+      days = timer.querySelector("#days"),
+      hours = timer.querySelector("#hours"),
+      minutes = timer.querySelector("#minutes"),
+      seconds = timer.querySelector("#seconds"),
+      timeInterval = setInterval(updateClock, 1000);
+
+    function updateClock() {
+      const t = getTimeRemaining(endTime);
+
+      days.innerHTML = t.days;
+      hours.innerHTML = t.hours;
+      minutes.innerHTML = t.minutes;
+      seconds.innerHTML = t.seconds;
+
+      if (t.total <= 0) {
+        clearInterval(timeInterval);
+      }
+    }
+  }
+
+  setClock(".timer", deadline);
 });
