@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
+  //Tabs
   const tabs = document.querySelectorAll(".tab-header__item"),
     tabsContent = document.querySelectorAll(".tab-content"),
     tabParent = document.querySelector(".tab-header__items");
@@ -35,4 +36,25 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
   });
+
+  //Timer
+  const deadline = "2023-01-21";
+
+  function getTimeRemaining(endTime) {
+    const total = Date.parse(endTime) - new Date(),
+      days = Math.floor(total / (1000 * 60 * 60 * 24)),
+      hours = Math.floor((total / (1000 * 60 * 60)) % 24),
+      minutes = Math.floor((total / 1000 / 60) % 60),
+      seconds = Math.floor((total / 1000) % 60);
+
+    return {
+      total,
+      days,
+      hours,
+      minutes,
+      seconds,
+    };
+  }
+
+  console.log(getTimeRemaining(deadline));
 });
