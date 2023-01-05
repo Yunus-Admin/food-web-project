@@ -229,7 +229,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const message = {
     loading: "Загрузка",
     success: "Спасибо! Скоро с вами свяжемся",
-    failure: "Что-то пошло не так",
+    failure: "Что-то пошло не так...",
   };
 
   // на каждую форму у нас подвязен обработчик события
@@ -248,15 +248,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const request = new XMLHttpRequest();
       request.open("POST", "server.php");
-      request.setRequestHeader("Content-type", "multipart/form-data");
+
+      //если используем связку XMLHttpRequest и FormData, то заголовок нам устанавливать не нужно он устанавливается
+      // автоматически
+      // request.setRequestHeader("Content-type", "multipart/form-data");
 
       const formData = new FormData(form);
       request.send(formData);
 
-      request.addEventListener("load", (e) => {
+      request.addEventListener("load", () => {
         if (request.status === 200) {
           console.log(request.response);
           statusMessage.textContent = message.success;
+          form.reset();
+          setTimeout(() => {
+            statusMessage.remove();
+          }, 2000);
         } else {
           statusMessage.textContent = message.failure;
         }
