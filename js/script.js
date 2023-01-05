@@ -232,9 +232,19 @@ document.addEventListener("DOMContentLoaded", () => {
     failure: "Что-то пошло не так",
   };
 
+  // на каждую форму у нас подвязен обработчик события
+  forms.forEach((item) => {
+    postData(item);
+  });
+
   function postData(form) {
     form.addEventListener("submit", (e) => {
       e.preventDefault();
+
+      const statusMessage = document.createElement("div");
+      statusMessage.classList.add("status");
+      statusMessage.textContent = message.loading;
+      form.append(statusMessage);
 
       const request = new XMLHttpRequest();
       request.open("POST", "server.php");
@@ -246,9 +256,11 @@ document.addEventListener("DOMContentLoaded", () => {
       request.addEventListener("load", (e) => {
         if (request.status === 200) {
           console.log(request.response);
+          statusMessage.textContent = message.success;
+        } else {
+          statusMessage.textContent = message.failure;
         }
       });
     });
   }
-  postData(forms);
 });
