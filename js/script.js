@@ -183,42 +183,31 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  new MenuCard(
-    "img/tabs/vegy.jpg",
-    "vegy",
-    'Меню "Фитнес"',
-    'Меню "Фитнес" - это новый подход к приготовлению блюд: больше\n' +
-      "свежих овощей и фруктов. Продукт активных и здоровых людей. Это\n" +
-      "абсолютно новый продукт с оптимальной ценой и высоким качеством!",
-    8,
-    ".menu .container",
-    "menu__item"
-  ).render();
+  const getResource = async (url) => {
+    const result = await fetch(url);
 
-  new MenuCard(
-    "img/tabs/elite.jpg",
-    "elite",
-    "Меню “Премиум”",
-    "В меню “Премиум” мы используем не только красивый дизайн упаковки,\n" +
-      "но и качественное исполнение блюд. Красная рыба, морепродукты,\n" +
-      "фрукты - ресторанное меню без похода в ресторан!",
-    12,
-    ".menu .container",
-    "menu__item"
-  ).render();
+    if (!result.ok) {
+      throw new Error(
+        `Failed to get resource ${url}, status: ${result.status}`
+      );
+    }
 
-  new MenuCard(
-    "img/tabs/post.jpg",
-    "post",
-    'Меню "Постное"',
-    "Меню “Постное” - это тщательный подбор ингредиентов: полное\n" +
-      "отсутствие продуктов животного происхождения, молоко из миндаля,\n" +
-      "овса, кокоса или гречки, правильное количество белков за счет тофу\n" +
-      "и импортных вегетарианских стейков.",
-    14,
-    ".menu .container",
-    "menu__item"
-  ).render();
+    return await result.json();
+  };
+
+  getResource("http://localhost:3000/menu").then((data) => {
+    data.forEach(({ img, altImg, title, descr, price }) => {
+      new MenuCard(
+        img,
+        altImg,
+        title,
+        descr,
+        price,
+        ".menu .container",
+        "menu__item"
+      ).render();
+    });
+  });
 
   //Forms
   const forms = document.querySelectorAll("form");
