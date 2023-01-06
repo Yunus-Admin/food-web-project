@@ -259,12 +259,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const formData = new FormData(form);
 
-      const object = {};
-      formData.forEach((key, value) => {
-        object[key] = value;
-      });
+      // const object = {};
+      // formData.forEach((key, value) => {
+      //   object[key] = value;
+      // });
 
-      postData("http://localhost:3000/requests", JSON.stringify(object))
+      const json = JSON.stringify(Object.fromEntries(Object.entries(formData)));
+
+      postData("http://localhost:3000/requests", JSON.stringify(json))
         .then((data) => {
           console.log(data);
           showModalThanks(message.success);
