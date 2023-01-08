@@ -209,6 +209,30 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
+  // getResource("http://localhost:3000/menu").then((data) => {
+  //   createMenuCard(data);
+  // });
+
+  // function createMenuCard(data) {
+  //   data.forEach(({ img, altImg, title, descr, price }) => {
+  //     const element = document.createElement("div");
+  //     element.classList.add("menu__item");
+  //     price *= 44;
+  //     element.innerHTML = `
+  //       <img src=${img} alt=${altImg} />
+  //           <h3 class="menu__item-subtitle">${title}</h3>
+  //           <div class="menu__item-descr">
+  //             ${descr}
+  //           </div>
+  //           <div class="menu__item-divider"></div>
+  //           <div class="menu__item-price">
+  //             <div class="menu__item-cost">Цена:</div>
+  //             <div class="menu__item-total"><span>${price}</span> грн/день</div>
+  //           </div>
+  //     `;
+  //   });
+  // }
+
   //Forms
   const forms = document.querySelectorAll("form");
 
@@ -293,8 +317,4 @@ document.addEventListener("DOMContentLoaded", () => {
       closeModal();
     }, 2000);
   }
-
-  fetch("http://localhost:3000/menu")
-    .then((data) => data.json())
-    .then((data) => console.log(data));
 });
