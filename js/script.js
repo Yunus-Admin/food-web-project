@@ -195,8 +195,22 @@ document.addEventListener("DOMContentLoaded", () => {
     return await result.json();
   };
 
-  getResource("http://localhost:3000/menu").then((data) => {
-    data.forEach(({ img, altImg, title, descr, price }) => {
+  // getResource("http://localhost:3000/menu").then((data) => {
+  //   data.forEach(({ img, altImg, title, descr, price }) => {
+  //     new MenuCard(
+  //       img,
+  //       altImg,
+  //       title,
+  //       descr,
+  //       price,
+  //       ".menu .container",
+  //       "menu__item"
+  //     ).render();
+  //   });
+  // });
+
+  axios.get("http://localhost:3000/menu").then((data) => {
+    data.data.forEach(({ img, altImg, title, descr, price }) => {
       new MenuCard(
         img,
         altImg,
