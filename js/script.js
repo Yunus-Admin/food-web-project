@@ -291,9 +291,9 @@ document.addEventListener("DOMContentLoaded", () => {
       //   object[key] = value;
       // });
 
-      const json = JSON.stringify(Object.fromEntries(Object.entries(formData)));
+      const json = JSON.stringify(Object.fromEntries(formData.entries()));
 
-      postData("http://localhost:3000/requests", JSON.stringify(json))
+      postData("http://localhost:3000/requests", json)
         .then((data) => {
           console.log(data);
           showModalThanks(message.success);
@@ -334,6 +334,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   //Slider
   const slides = document.querySelectorAll(".offer__slide"),
+    slider = document.querySelector(".offer__slider"),
     prev = document.querySelector(".offer__slider-prev"),
     next = document.querySelector(".offer__slider-next"),
     current = document.querySelector("#current"),
@@ -362,6 +363,38 @@ document.addEventListener("DOMContentLoaded", () => {
     slide.style.width = width;
   });
 
+  slider.style.position = "relative";
+
+  const indicators = document.createElement("ol"),
+    dotsArr = [];
+  indicators.classList.add("carousel-indicators");
+
+  slider.append(indicators);
+
+  for (let i = 0; i < slides.length; i++) {
+    const dot = document.createElement("li");
+    dot.setAttribute("data-slide-index", i + 1);
+
+    if (i === 0) {
+      dot.style.opacity = "1";
+    }
+    indicators.append(dot);
+    dotsArr.push(dot);
+  }
+
+  function currentSlide() {
+    if (slides.length < 10) {
+      current.textContent = `0${slideIndex}`;
+    } else {
+      current.textContent = slideIndex;
+    }
+  }
+
+  function changeDotOpacity() {
+    dotsArr.forEach((dot) => (dot.style.opacity = "0.5"));
+    dotsArr[slideIndex - 1].style.opacity = "1";
+  }
+
   next.addEventListener("click", () => {
     if (offset === +width.slice(0, width.length - 2) * (slides.length - 1)) {
       offset = 0;
@@ -377,11 +410,8 @@ document.addEventListener("DOMContentLoaded", () => {
       slideIndex++;
     }
 
-    if (slides.length < 10) {
-      current.textContent = `0${slideIndex}`;
-    } else {
-      current.textContent = slideIndex;
-    }
+    currentSlide();
+    changeDotOpacity();
   });
 
   prev.addEventListener("click", () => {
@@ -399,13 +429,23 @@ document.addEventListener("DOMContentLoaded", () => {
       slideIndex--;
     }
 
-    if (slides.length < 10) {
-      current.textContent = `0${slideIndex}`;
-    } else {
-      current.textContent = slideIndex;
-    }
+    currentSlide();
+    changeDotOpacity();
   });
 
+  dotsArr.forEach((dot) => {
+    dot.addEventListener("click", (e) => {
+      const getSliderIndex = e.target.getAttribute("data-slide-index");
+
+      slideIndex = getSliderIndex;
+      offset = +width.slice(0, width.length - 2) * (getSliderIndex - 1);
+
+      slidesField.style.transform = `translateX(-${offset}px)`;
+
+      currentSlide();
+      changeDotOpacity();
+    });
+  });
   // showSlides(slideIndex);
   //
   // if (slides.length < 10) {
