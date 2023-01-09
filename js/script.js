@@ -476,4 +476,29 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   calcTotal();
+
+  function getStaticInformation(parentSelector, activeClasses) {
+    const elements = document.querySelectorAll(`${parentSelector} div`); //получим все дивы
+
+    document.querySelector(parentSelector).addEventListener("click", (e) => {
+      if (e.target.getAttribute("data-ratio")) {
+        ratio = +e.target.getAttribute("data-ratio");
+      } else {
+        sex = e.target.getAttribute("id");
+      }
+      console.log(ratio, sex);
+
+      elements.forEach((elem) => {
+        elem.classList.remove(activeClasses);
+      });
+
+      e.target.classList.add(activeClasses);
+    });
+  }
+
+  getStaticInformation("#gender", "calculating__choose-item_active");
+  getStaticInformation(
+    ".calculating__choose_big",
+    "calculating__choose-item_active"
+  );
 });
