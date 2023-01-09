@@ -400,11 +400,15 @@ document.addEventListener("DOMContentLoaded", () => {
     dotsArr[slideIndex - 1].style.opacity = "1";
   }
 
+  function deleteNotDigits(str) {
+    return +str.replace(/\D/g);
+  }
+
   next.addEventListener("click", () => {
-    if (offset === +width.slice(0, width.length - 2) * (slides.length - 1)) {
+    if (offset === deleteNotDigits(width) * (slides.length - 1)) {
       offset = 0;
     } else {
-      offset += +width.slice(0, width.length - 2);
+      offset += deleteNotDigits(width);
     }
 
     slidesFieldTransform();
@@ -421,9 +425,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   prev.addEventListener("click", () => {
     if (offset === 0) {
-      offset = +width.slice(0, width.length - 2) * (slides.length - 1);
+      offset = deleteNotDigits(width) * (slides.length - 1);
     } else {
-      offset -= +width.slice(0, width.length - 2);
+      offset -= deleteNotDigits(width);
     }
 
     slidesFieldTransform();
@@ -443,49 +447,11 @@ document.addEventListener("DOMContentLoaded", () => {
       const getSliderIndex = e.target.getAttribute("data-slide-index");
 
       slideIndex = getSliderIndex;
-      offset = +width.slice(0, width.length - 2) * (getSliderIndex - 1);
+      offset = deleteNotDigits(width) * (getSliderIndex - 1);
 
       slidesFieldTransform();
       currentSlide();
       changeDotOpacity();
     });
   });
-  // showSlides(slideIndex);
-  //
-  // if (slides.length < 10) {
-  //   total.textContent = `0${slides.length}`;
-  // } else {
-  //   total.textContent = slides.length;
-  // }
-  //
-  // function showSlides(n) {
-  //   if (n > slides.length) {
-  //     slideIndex = 1;
-  //   }
-  //
-  //   if (n < 1) {
-  //     slideIndex = slides.length;
-  //   }
-  //
-  //   slides.forEach((item) => (item.style.display = "none"));
-  //
-  //   slides[slideIndex - 1].style.display = "block";
-  //
-  //   if (slides.length < 10) {
-  //     current.textContent = `0${slideIndex}`;
-  //   } else {
-  //     current.textContent = slideIndex;
-  //   }
-  // }
-  //
-  // function plusSlides(n) {
-  //   showSlides((slideIndex += n));
-  // }
-  //
-  // prev.addEventListener("click", () => {
-  //   plusSlides(-1);
-  // });
-  // next.addEventListener("click", () => {
-  //   plusSlides(+1);
-  // });
 });
