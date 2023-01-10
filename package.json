@@ -21,6 +21,8 @@
   },
   "homepage": "https://github.com/Yunus-Admin/food-web-project#readme",
   "devDependencies": {
-    "json-server": "^0.17.1"
+    "json-server": "^0.17.1",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1"
   }
 }
