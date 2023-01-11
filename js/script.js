@@ -23,5 +23,5 @@ document.addEventListener("DOMContentLoaded", () => {
   slides();
   cards();
   forms("form", modalTimerId);
-  timer();
+  timer(".timer", "2023-01-31");
 });
