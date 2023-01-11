@@ -1,8 +1,13 @@
-function cards() {
+function cards(
+  tabsSelector,
+  tabsContentSelector,
+  tabParentSelector,
+  activeClass
+) {
   //Tabs
-  const tabs = document.querySelectorAll(".tab-header__item"),
-    tabsContent = document.querySelectorAll(".tab-content"),
-    tabParent = document.querySelector(".tab-header__items");
+  const tabs = document.querySelectorAll(tabsSelector),
+    tabsContent = document.querySelectorAll(tabsContentSelector),
+    tabParent = document.querySelector(tabParentSelector);
 
   function hideTabContent() {
     tabsContent.forEach((item) => {
@@ -11,14 +16,14 @@ function cards() {
     });
 
     tabs.forEach((item) => {
-      item.classList.remove("tab-header__item_active");
+      item.classList.remove(activeClass);
     });
   }
 
   function showTabContent(i = 0) {
     tabsContent[i].classList.add("show", "fade");
     tabsContent[i].classList.remove("hide");
-    tabs[i].classList.add("tab-header__item_active");
+    tabs[i].classList.add(activeClass);
   }
 
   hideTabContent();
@@ -26,8 +31,8 @@ function cards() {
 
   tabParent.addEventListener("click", (event) => {
     const target = event.target;
-
-    if (target && target.classList.contains("tab-header__item")) {
+    //убрали точку через метод slice у tabsSelector
+    if (target && target.classList.contains(tabsSelector.slice(1))) {
       tabs.forEach((item, i) => {
         if (target === item) {
           hideTabContent();

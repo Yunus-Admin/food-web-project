@@ -1,3 +1,5 @@
+import { getResource } from "../services/services";
+
 function cards() {
   //Class for cards
   class MenuCard {
@@ -43,18 +45,6 @@ function cards() {
       this.parent.append(element);
     }
   }
-
-  const getResource = async (url) => {
-    const result = await fetch(url);
-
-    if (!result.ok) {
-      throw new Error(
-        `Failed to get resource ${url}, status: ${result.status}`
-      );
-    }
-
-    return await result.json();
-  };
 
   getResource("http://localhost:3000/menu").then((data) => {
     data.forEach(({ img, altImg, title, descr, price }) => {
