@@ -71,8 +71,14 @@ function slider({
   }
 
   function changeDotOpacity() {
-    dotsArr.forEach((dot) => (dot.style.opacity = "0.5"));
-    return (dotsArr[slideIndex - 1].style.opacity = "1");
+    try {
+      dotsArr.forEach((dot) => (dot.style.opacity = "0.5"));
+      return (dotsArr[slideIndex - 1].style.opacity = "1");
+    } catch (e) {
+      console.log(e.stack);
+    } finally {
+      dotsArr[slideIndex - 1].style.opacity = "1";
+    }
   }
 
   function deleteNotDigits(str) {
@@ -119,8 +125,7 @@ function slider({
 
   dotsArr.forEach((dot) => {
     dot.addEventListener("click", (e) => {
-      const getSliderIndex = e.target.getAttribute("data-slide-index");
-
+      const getSliderIndex = +e.target.getAttribute("data-slide-index");
       slideIndex = getSliderIndex;
       offset = deleteNotDigits(width) * (getSliderIndex - 1);
 
