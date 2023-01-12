@@ -1,6 +1,5 @@
-function calculator() {
-  //Calculator
-  const result = document.querySelector(".calculating__result span");
+function calculator(calculateSelector) {
+  const result = document.querySelector(calculateSelector);
   let sex, height, weight, age, ratio;
 
   if (localStorage.getItem("sex")) {

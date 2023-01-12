@@ -4,7 +4,6 @@ function cards(
   tabParentSelector,
   activeClass
 ) {
-  //Tabs
   const tabs = document.querySelectorAll(tabsSelector),
     tabsContent = document.querySelectorAll(tabsContentSelector),
     tabParent = document.querySelector(tabParentSelector);

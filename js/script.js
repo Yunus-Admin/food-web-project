@@ -19,8 +19,17 @@ document.addEventListener("DOMContentLoaded", () => {
     "tab-header__item_active"
   );
   modal("[data-modal]", ".modal", modalTimerId);
-  calculator();
-  slides();
+  calculator(".calculating__result span");
+  slides({
+    slide: ".offer__slide",
+    container: ".offer__slider",
+    prevArrow: ".offer__slider-prev",
+    nextArrow: ".offer__slider-next",
+    currentCounterId: "#current",
+    totalCounterId: "#total",
+    wrapper: ".offer__slider-wrapper",
+    fields: ".slider__offer-inner",
+  });
   cards();
   forms("form", modalTimerId);
   timer(".timer", "2023-01-31");

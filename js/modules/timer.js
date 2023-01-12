@@ -1,5 +1,4 @@
 function timer(timerSelector, deadline) {
-  //Timer
   function getTimeRemaining(endTime) {
     const total = Date.parse(endTime) - new Date(),
       days = Math.floor(total / (1000 * 60 * 60 * 24)),
